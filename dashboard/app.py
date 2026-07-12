@@ -1,6 +1,5 @@
 import sys
 from pathlib import Path
-from config import settings
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.append(str(PROJECT_ROOT))
@@ -9,6 +8,7 @@ import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
 
+from config import settings
 from ingestion.fetch_data import fetch_1m_data
 from indicators.resample import resample_ohlcv
 from indicators.indicators import add_indicators
