@@ -50,3 +50,10 @@ Rule-based signal engine
       |
       v
 Streamlit dashboard
+
+## Dashboard health check
+
+Start the application with Docker Compose:
+
+```powershell
+docker compose up -d --build
