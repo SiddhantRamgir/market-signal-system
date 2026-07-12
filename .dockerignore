@@ -1,0 +1,46 @@
+# Virtual environments
+.venv/
+venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Git
+.git/
+.gitignore
+
+# Environment secrets
+.env
+.env.*
+
+# Keep the example configuration
+!.env.example
+
+# Editor files
+.vscode/
+.idea/
+
+# Test and coverage files
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Logs
+logs/
+*.log
+
+# Local generated data
+data/*.csv
+data/*.json
+data/*.db
+data/*.sqlite
+data/*.sqlite3
+
+# Operating-system files
+.DS_Store
+Thumbs.db
+
+# Documentation and temporary files
+*.tmp
+*.bak

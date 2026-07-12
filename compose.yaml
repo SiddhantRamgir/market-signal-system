@@ -1,0 +1,52 @@
+services:
+  dashboard:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    image: market-signal-app:${APP_VERSION:-0.2.0}
+
+    container_name: market-signal-dashboard
+
+    ports:
+      - "${APP_PORT:-8501}:8501"
+
+    env_file:
+      - .env
+
+    environment:
+      APP_ENV: ${APP_ENV:-development}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+      DEFAULT_PERIOD: ${DEFAULT_PERIOD:-5d}
+      DEFAULT_INTERVAL: ${DEFAULT_INTERVAL:-1m}
+      DEFAULT_TIMEFRAME: ${DEFAULT_TIMEFRAME:-15min}
+
+    restart: unless-stopped
+
+    init: true
+
+    cpus: 0.75
+    mem_limit: 768m
+    pids_limit: 200
+
+    volumes:
+      - ./data:/app/data
+
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://localhost:8501/_stcore/health', timeout=3)"
+        ]
+      interval: 30s
+      timeout: 5s
+      start_period: 30s
+      retries: 3
+
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"

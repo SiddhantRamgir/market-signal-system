@@ -1,0 +1,9 @@
+yfinance
+pandas
+numpy
+ta
+streamlit
+Plotly
+python-dotenv
+pytest
+pytest-cov
