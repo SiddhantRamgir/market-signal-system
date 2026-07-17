@@ -1,0 +1,45 @@
+// 1. Latest container logs
+union isfuzzy=true ContainerAppConsoleLogs, ContainerAppConsoleLogs_CL
+| where TimeGenerated > ago(1h)
+| order by TimeGenerated desc
+| take 50
+
+
+// 2. Application errors
+union isfuzzy=true ContainerAppConsoleLogs, ContainerAppConsoleLogs_CL
+| where TimeGenerated > ago(24h)
+| where Log_s has "ERROR"
+   or Log_s has '"level":"ERROR"'
+   or Log_s has "Exception"
+| order by TimeGenerated desc
+
+
+// 3. Signal generation events
+union isfuzzy=true ContainerAppConsoleLogs, ContainerAppConsoleLogs_CL
+| where TimeGenerated > ago(24h)
+| where Log_s has "signal_generated"
+| order by TimeGenerated desc
+
+
+// 4. Empty market data events
+union isfuzzy=true ContainerAppConsoleLogs, ContainerAppConsoleLogs_CL
+| where TimeGenerated > ago(24h)
+| where Log_s has "market_data_empty"
+| summarize EmptyDataEvents=count() by bin(TimeGenerated, 30m)
+
+
+// 5. Error count over time
+union isfuzzy=true ContainerAppConsoleLogs, ContainerAppConsoleLogs_CL
+| where TimeGenerated > ago(24h)
+| where Log_s has "ERROR"
+   or Log_s has '"level":"ERROR"'
+   or Log_s has "Exception"
+| summarize ErrorCount=count() by bin(TimeGenerated, 15m)
+| order by TimeGenerated asc
+
+
+// 6. Container app system logs, if available
+union isfuzzy=true ContainerAppSystemLogs, ContainerAppSystemLogs_CL
+| where TimeGenerated > ago(24h)
+| order by TimeGenerated desc
+| take 50
