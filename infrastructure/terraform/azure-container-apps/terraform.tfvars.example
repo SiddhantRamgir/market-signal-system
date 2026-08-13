@@ -1,0 +1,15 @@
+github_username = "siddhantramgir"
+image_tag       = "v0.4.0"
+
+location = "northeurope"
+
+resource_group_name              = "rg-market-signal-tf-lab"
+log_analytics_workspace_name     = "law-market-signal-tf-lab"
+container_app_environment_name   = "cae-market-signal-tf-lab"
+container_app_name               = "ca-market-signal-dashboard"
+
+app_env           = "azure-terraform-lab"
+log_level         = "INFO"
+default_period    = "5d"
+default_interval  = "1m"
+default_timeframe = "15min"
